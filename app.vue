@@ -1,5 +1,7 @@
 <template>
-  <div>
-    <NuxtWelcome />
-  </div>
+	<div>
+
+	</div>
+	<NuxtPage />
+	<!-- Vergeet niet, we hebben layouts enzo -->
 </template>
