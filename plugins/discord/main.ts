@@ -1,5 +1,5 @@
 const { SlashCreator, GatewayServer } = require("slash-create");
-const runtimeConfig = useRuntimeConfig();
+const path = require("path");
 const {
   Client,
   GatewayIntentBits,
@@ -7,8 +7,6 @@ const {
   Collection,
   ActivityType,
 } = require("discord.js");
-
-const path = require("path");
 
 export let started_up = false;
 export const discordClient = new Client({
@@ -21,15 +19,16 @@ export const discordClient = new Client({
     GatewayIntentBits.MessageContent,
   ],
 });
+export let slashCreator: any = undefined;
 
-export const slashCreator = new SlashCreator({
-  applicationID: runtimeConfig.discordApplicationId,
-  publicKey: runtimeConfig.discordPublicKey,
-  token: runtimeConfig.discordToken,
-  client: discordClient,
-});
+export async function startup(runtimeConfig: any) {
+  slashCreator = new SlashCreator({
+    applicationID: runtimeConfig.discordApplicationId,
+    publicKey: runtimeConfig.discordPublicKey,
+    token: runtimeConfig.discordToken,
+    client: discordClient,
+  });
 
-export async function startup() {
   slashCreator.withServer(
     new GatewayServer((handler: any) =>
       discordClient.ws.on("INTERACTION_CREATE", handler)
@@ -40,9 +39,7 @@ export async function startup() {
 
   await slashCreator.syncCommands();
 
-  await discordClient.login(
-    "DISCORD_MTE4ODQ1Mzc2ODMzMzg4OTU2Ng.GDgV2e.sFRkSZxQjF0Al_CT3YICAhRXkNzOBduY6U3kII"
-  );
+  await discordClient.login(runtimeConfig.discordToken);
 
   console.log("Started up Discord instances...");
 
