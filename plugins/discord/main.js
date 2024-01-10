@@ -1,3 +1,7 @@
+// Some funny things about this file
+// We do not know why slash create is so weird, but it be weird.
+// Good luck xoxo
+
 const { SlashCreator, GatewayServer } = require("slash-create");
 const path = require("path");
 const {
