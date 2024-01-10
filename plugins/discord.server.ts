@@ -7,18 +7,17 @@ import {
   slashCreator,
   started_up,
 } from "~/plugins/discord/main";
-const runtimeConfig = useRuntimeConfig();
 
 async function getDiscordClient() {
   if (!started_up) {
-    await startup(runtimeConfig);
+    return undefined;
   }
   return discordClient;
 }
 
 async function getSlashCreatorInstance() {
   if (!started_up) {
-    await startup(runtimeConfig);
+    return undefined;
   }
   return getSlashCreatorInstance;
 }
@@ -27,6 +26,8 @@ export default defineNuxtPlugin({
   name: "discord-plugin",
   enforce: "pre", // or 'post'
   async setup(nuxtApp) {
+    // const runtimeConfig = useRuntimeConfig();
+
     // this is the equivalent of a normal functional plugin
     return {
       provide: {
@@ -42,6 +43,7 @@ export default defineNuxtPlugin({
   hooks: {
     // You can directly register Nuxt app runtime hooks here
     "app:created"() {
+      const runtimeConfig = useRuntimeConfig();
       startup(runtimeConfig);
     },
   },
