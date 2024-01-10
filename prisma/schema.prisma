@@ -11,18 +11,18 @@ datasource db {
 }
 
 model Account {
-  id                 String  @id @default(cuid())
-  userId             String
-  type               String
-  provider           String
-  providerAccountId  String
-  refresh_token      String?  @db.Text
-  access_token       String?  @db.Text
-  expires_at         Int?
-  token_type         String?
-  scope              String?
-  id_token           String?  @db.Text
-  session_state      String?
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
@@ -45,6 +45,8 @@ model User {
   image         String?
   accounts      Account[]
   sessions      Session[]
+  Team          Team?     @relation(fields: [teamId], references: [id], onDelete: SetNull)
+  teamId        String?
 }
 
 model VerificationToken {
@@ -53,4 +55,71 @@ model VerificationToken {
   expires    DateTime
 
   @@unique([identifier, token])
+}
+
+// Other
+
+model Team {
+  id               String       @id @default(cuid())
+  name             String
+  members          User[]
+  discordChannelId String
+  discordRoleId    String
+  createdAt        DateTime     @default(now())
+  updatedAt        DateTime     @updatedAt
+  Submission       Submission[]
+}
+
+enum Status {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+enum submissionType {
+  PUZZLE
+  CHALLENGE
+  CRAZY88
+}
+
+model Submission {
+  id       String         @id @default(cuid())
+  media    String // Link to the submitteed photo / video proof
+  approved Status         @default(PENDING)
+  points   Int            @default(0) // Points earned by the submission
+  isFunny  Boolean        @default(false) // Is the submission fit fot the after movie
+  type     submissionType
+  team     Team           @relation(fields: [teamId], references: [id], onDelete: Cascade)
+  teamId   String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  ChallengeSubmission ChallengeSubmission?
+  PuzzleSubmission    PuzzleSubmission?
+  Crazy88Submission   Crazy88Submission?
+}
+
+model ChallengeSubmission {
+  submissionId String     @id
+  submission   Submission @relation(fields: [submissionId], references: [id], onDelete: Cascade)
+  number       Int
+  location     Int
+}
+
+model PuzzleSubmission {
+  submissionId String     @id
+  submission   Submission @relation(fields: [submissionId], references: [id], onDelete: Cascade)
+  location     Int
+}
+
+model Crazy88Submission {
+  submissionId String     @id
+  submission   Submission @relation(fields: [submissionId], references: [id], onDelete: Cascade)
+  number       Int
+}
+
+model variables {
+  key   String  @id
+  value String?
 }
