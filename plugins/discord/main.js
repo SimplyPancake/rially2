@@ -19,9 +19,9 @@ export const discordClient = new Client({
     GatewayIntentBits.MessageContent,
   ],
 });
-export let slashCreator: any = undefined;
+export let slashCreator = undefined;
 
-export async function startup(runtimeConfig: any) {
+export async function startup(runtimeConfig) {
   slashCreator = new SlashCreator({
     applicationID: runtimeConfig.discordApplicationId,
     publicKey: runtimeConfig.discordPublicKey,
@@ -29,8 +29,16 @@ export async function startup(runtimeConfig: any) {
     client: discordClient,
   });
 
+  slashCreator.on("error", (msg) => {
+    console.error(msg);
+  });
+
+  slashCreator.on("debug", (msg) => {
+    console.debug(msg);
+  });
+
   slashCreator.withServer(
-    new GatewayServer((handler: any) =>
+    new GatewayServer((handler) =>
       discordClient.ws.on("INTERACTION_CREATE", handler)
     )
   );
@@ -45,9 +53,3 @@ export async function startup(runtimeConfig: any) {
 
   started_up = true;
 }
-
-// export default {
-//   startup,
-//   slashCreator: creator,
-//   discordClient: client,
-// };
