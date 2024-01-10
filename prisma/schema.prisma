@@ -45,6 +45,7 @@ model User {
   image         String?
   accounts      Account[]
   sessions      Session[]
+  isAdmin       Boolean   @default(false)
   Team          Team?     @relation(fields: [teamId], references: [id], onDelete: SetNull)
   teamId        String?
 }
