@@ -8,4 +8,9 @@ export default defineNuxtConfig({
     pinia: "/node_modules/@pinia/nuxt/node_modules/pinia/dist/pinia.mjs",
     cookie: resolve(__dirname, "node_modules/cookie"),
   },
+  // For debugging:
+  sourcemap: {
+    server: true,
+    client: true,
+  },
 });
