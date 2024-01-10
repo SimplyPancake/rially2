@@ -17,6 +17,8 @@
   },
   "dependencies": {
     "@nuxt/ui": "^2.11.1",
-    "@pinia/nuxt": "^0.5.1"
+    "@pinia/nuxt": "^0.5.1",
+    "discord.js": "^14.14.1",
+    "slash-create": "^6.0.2"
   }
 }

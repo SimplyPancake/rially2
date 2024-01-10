@@ -8,6 +8,11 @@ export default defineNuxtConfig({
     pinia: "/node_modules/@pinia/nuxt/node_modules/pinia/dist/pinia.mjs",
     cookie: resolve(__dirname, "node_modules/cookie"),
   },
+  runtimeConfig: {
+    discordApplicationId: "",
+    discordPublicKey: "",
+    discordToken: "",
+  },
   // For debugging:
   sourcemap: {
     server: true,
