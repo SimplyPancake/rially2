@@ -19,6 +19,7 @@
     "@nuxt/ui": "^2.11.1",
     "@pinia/nuxt": "^0.5.1",
     "discord.js": "^14.14.1",
+    "prisma": "^5.8.0",
     "slash-create": "^6.0.2"
   }
 }
