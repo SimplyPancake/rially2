@@ -31,9 +31,7 @@ export const authOptions: AuthConfig = {
       session: Session;
       user: AdapterUser;
     }) => {
-      // @ts-expect-error
       session.user.id = user.id;
-      // @ts-expect-error
       session.user.isAdmin = user.isAdmin;
       return Promise.resolve(session);
     },
