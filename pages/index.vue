@@ -1,11 +1,22 @@
 <script setup lang="ts">
-const route = useRoute()
+const { signIn, signOut, session, status, cookies, getProviders } = useAuth()
 </script>
 
 <template>
   <div>
-    <h1>Nuxt Routing set up successfully!</h1>
-    <p>Current route: {{ route.path }}</p>
-    <a href="https://nuxt.com/docs/getting-started/routing" target="_blank">Learn more about Nuxt Routing</a>
+    <div>
+      <a href="/api/auth/signin" class="buttonPrimary">Native Link Sign in</a>
+      <button @click="signIn(`github`)">
+        JS Sign In
+      </button>
+      <button @click="signOut()">
+        Sign Out
+      </button>
+    </div>
+    <div>
+      <pre>{{ status }}</pre>
+      <pre>{{ session?.user }}</pre>
+      <pre>{{ cookies }}</pre>
+    </div>
   </div>
 </template>
