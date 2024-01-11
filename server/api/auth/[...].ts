@@ -31,8 +31,7 @@ export const authOptions: AuthConfig = {
       session: Session;
       user: AdapterUser;
     }) => {
-      session.user.id = user.id;
-      session.user.isAdmin = user.isAdmin;
+      session.user = user;
       return Promise.resolve(session);
     },
   },

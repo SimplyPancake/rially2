@@ -1,11 +1,10 @@
+import { User as pUser } from "@prisma/client";
+
 declare module "@auth/core/types" {
   interface Session {
     user?: User;
   }
-  interface User {
-    id: string;
-    isAdmin: boolean;
-  }
+  interface User extends pUser {}
 }
 
 export {};
