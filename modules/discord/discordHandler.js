@@ -1,7 +1,3 @@
-// Some funny things about this file
-// We do not know why slash create is so weird, but it be weird.
-// Good luck xoxo
-
 const { SlashCreator, GatewayServer } = require("slash-create");
 const path = require("path");
 const {
@@ -12,7 +8,10 @@ const {
   ActivityType,
 } = require("discord.js");
 
-export let started_up = false;
+let started_up = false;
+export function getstarted_up() {
+  return started_up;
+}
 export const discordClient = new Client({
   intents: [
     GatewayIntentBits.Guilds,
@@ -53,7 +52,6 @@ export async function startup(runtimeConfig) {
 
   await discordClient.login(runtimeConfig.discordToken);
 
-  console.log("Started up Discord instances...");
-
+  console.log("Started up Discord instance!");
   started_up = true;
 }

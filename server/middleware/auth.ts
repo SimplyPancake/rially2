@@ -3,13 +3,13 @@ import { getServerSession, getServerToken } from "#auth";
 import { User } from "@prisma/client";
 
 export default defineEventHandler(async (event) => {
-  const session = await getServerSession(event, authOptions);
-  event.context.session = session;
-  event.context.isLoggedIn = false;
-  if (session!.user != null || session!.user != undefined) {
-    // brakke code
-    event.context.isLoggedIn = true;
-    const user = session!.user!;
-    event.context.isAdmin = user.isAdmin;
-  }
+  //   const session = await getServerSession(event, authOptions);
+  //   event.context.session = session;
+  //   event.context.isLoggedIn = false;
+  //   if (session!.user != null || session!.user != undefined) {
+  //     // brakke code
+  //     event.context.isLoggedIn = true;
+  //     const user = session!.user!;
+  //     event.context.isAdmin = user.isAdmin;
+  //   }
 });
