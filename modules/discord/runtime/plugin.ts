@@ -2,13 +2,14 @@ import {
   startup,
   discordClient,
   slashCreator,
-  getstarted_up,
-} from "../discordHandler.js";
+  started_up,
+} from "./discordHandler";
 
 export default defineNuxtPlugin((nuxtApp) => {
-  console.log("Creating discord nuxt plugin...");
-  console.log(
-    "Plugin thinks that discord has been started_up:" + getstarted_up()
-  );
-  nuxtApp.provide("discordClient", () => discordClient);
+  console.log("Plugin!");
+  //   console.log(nuxtApp);
+  //   console.info(
+  //     "Plugin thinks that discord has been started_up:" + started_up
+  //   );
+  //   nuxtApp.provide("discordClient", () => discordClient);
 });

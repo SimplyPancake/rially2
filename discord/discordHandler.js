@@ -8,10 +8,8 @@ const {
   ActivityType,
 } = require("discord.js");
 
-let started_up = false;
-export function getstarted_up() {
-  return started_up;
-}
+export let started_up = false;
+
 export const discordClient = new Client({
   intents: [
     GatewayIntentBits.Guilds,
