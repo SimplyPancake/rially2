@@ -28,4 +28,9 @@ export default defineNuxtConfig({
     server: true,
     client: true,
   },
+  authJs: {
+    guestRedirectTo: "/api/auth/signin",
+    verifyClientOnEveryRequest: false,
+    baseUrl: "localhost:3000",
+  },
 });
